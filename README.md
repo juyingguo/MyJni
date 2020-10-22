@@ -1,0 +1,2 @@
+# MyJni
+my jni
