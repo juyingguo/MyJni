@@ -117,3 +117,57 @@ Java_com_example_myjni_MainActivity_test1(JNIEnv *env, jobject thiz, jboolean jb
     env->ReleaseBooleanArrayElements(bArray_, bArray, 0);*/
 
 }
+extern "C" //支持 C 语言
+JNIEXPORT void JNICALL //告诉虚拟机，这是jni函数
+Java_com_example_myjni_MainActivity_nativeCount(JNIEnv *env, jobject instance) {
+    jclass cls = env->GetObjectClass(instance);
+    jfieldID fieldID = env->GetFieldID(cls, "count", "I");
+
+    /*if (env->MonitorEnter(instance) != JNI_OK) {
+        LOGE("%s: MonitorEnter() failed", __FUNCTION__);
+    }*/
+
+    /* synchronized block */
+    int val = env->GetIntField(instance, fieldID);
+    val++;
+    LOGI("count=%d", val);
+    env->SetIntField(instance, fieldID, val);
+
+    /*if (env->ExceptionOccurred()) {
+        LOGE("ExceptionOccurred()...");
+        if (env->MonitorExit(instance) != JNI_OK) {
+            LOGE("%s: MonitorExit() failed", __FUNCTION__);
+        };
+    }
+
+    if (env->MonitorExit(instance) != JNI_OK) {
+        LOGE("%s: MonitorExit() failed", __FUNCTION__);
+    };*/
+}
+extern "C"//支持 C 语言
+JNIEXPORT void JNICALL//告诉虚拟机，这是jni函数
+Java_com_example_myjni_MainActivity_syncNativeCount(JNIEnv *env, jobject instance) {
+    jclass cls = env->GetObjectClass(instance);
+    jfieldID fieldID = env->GetFieldID(cls, "count", "I");
+
+    if (env->MonitorEnter(instance) != JNI_OK){
+        LOGE("%s:MonitorEnter() failed",__FUNCTION__);
+    }
+
+    /* synchronized block */
+    int val = env->GetIntField(instance, fieldID);
+    val++;
+    LOGI("count=%d", val);
+    env->SetIntField(instance, fieldID, val);
+
+    if (env->ExceptionOccurred()) {
+        LOGE("ExceptionOccurred()...");
+        if (env->MonitorExit(instance) != JNI_OK) {
+            LOGE("%s: MonitorExit() failed", __FUNCTION__);
+        };
+    }
+
+    if (env->MonitorExit(instance) != JNI_OK) {
+        LOGE("%s: MonitorExit() failed", __FUNCTION__);
+    };
+}

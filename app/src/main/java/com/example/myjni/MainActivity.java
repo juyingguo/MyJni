@@ -3,10 +3,13 @@ package com.example.myjni;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private String TAG = "com.example.myjni.MainActivity";
     // Used to load the 'native-lib' library on application startup.
     static {
         System.loadLibrary("native-lib");
@@ -63,4 +66,37 @@ public class MainActivity extends AppCompatActivity {
             boolean[] bArray*/
     );
 
+    int count = 0;
+    public void clickNotSyncThreadTest(View view) {
+        for (int i = 0; i < 10; i++) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    count();
+                    nativeCount();
+                }
+            }).start();
+        }
+    }
+    private void count() {
+        synchronized (this) {
+            count++;
+            Log.d("count() from Java,", "count=" + count);
+        }
+    }
+
+    public native void nativeCount();
+    public native void syncNativeCount();
+
+    public void clickSyncThreadTest(View view) {
+        for (int i = 0; i < 10; i++) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    count();
+                    syncNativeCount();
+                }
+            }).start();
+        }
+    }
 }
