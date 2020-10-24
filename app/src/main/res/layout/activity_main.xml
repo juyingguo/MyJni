@@ -24,5 +24,11 @@
         android:layout_height="wrap_content"
         android:text="同步线程验证"
         android:onClick="clickSyncThreadTest"/>
+    <Button
+        android:id="@+id/btn_test_cmake_static_library"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cmake 静态库"
+        android:onClick="clickStaticLibraryTest"/>
 
 </LinearLayout>

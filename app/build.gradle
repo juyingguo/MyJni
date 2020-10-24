@@ -11,8 +11,13 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
-                cppFlags ""
+                // cppFlags "" // 默认包含四大平台
+//                abiFilters 'armeabi-v7a'//编译armeabi-v7a平台
             }
+        }
+        ndk {
+            //过滤，只使用这个版本的库,否则默认的可是4个平台
+//            abiFilters 'armeabi-v7a' //暂时关闭，使用所有平台
         }
     }
     buildTypes {

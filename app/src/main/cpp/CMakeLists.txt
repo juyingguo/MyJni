@@ -5,6 +5,13 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
+# 打印日志
+message("当前CMake的路径是：${CMAKE_SOURCE_DIR}")
+message("当前 CMAKE_ANDROID_ARCH_ABI 的路径是：${CMAKE_ANDROID_ARCH_ABI}")
+
+# 批量引入源文件
+file(GLOB allCpp *.cpp)
+
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
@@ -17,7 +24,20 @@ add_library( # Sets the name of the library.
              SHARED
 
              # Provides a relative path to your source file(s).
-             native-lib.cpp )
+             #native-lib.cpp 替换为  ${allCpp} 批量导入文件
+            ${allCpp}
+        )
+
+# 导入静态库
+#add_library(test_a STATIC IMPORTED)
+
+# 开始真正的导入
+#set_target_properties(
+#        test_a PROPERTIES
+##        IMPORTED_LINK_INTERFACE_LIBRARIES ""
+#        IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/libtest.a
+##        IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/test_a${ANDROID_ABI}.a
+#)
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
@@ -32,6 +52,9 @@ find_library( # Sets the name of the path variable.
               # you want CMake to locate.
               log )
 
+
+message("当前的log路径在哪里啊 >>>>>>>>>>>>>>>>> ${log-lib}")
+
 # Specifies libraries CMake should link to your target library. You
 # can link multiple libraries, such as libraries you define in this
 # build script, prebuilt third-party libraries, or system libraries.
@@ -41,4 +64,4 @@ target_link_libraries( # Specifies the target library.
 
                        # Links the target library to the log library
                        # included in the NDK.
-                       ${log-lib} )
+                       ${log-lib})

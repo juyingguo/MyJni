@@ -99,4 +99,12 @@ public class MainActivity extends AppCompatActivity {
             }).start();
         }
     }
+
+    public void clickStaticLibraryTest(View view) {
+//        testCmake();
+    }
+    /**
+     * 测试 cmake 构建程序
+     */
+//    public native static void testCmake();
 }
