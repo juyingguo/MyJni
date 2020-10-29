@@ -29,15 +29,15 @@ add_library( # Sets the name of the library.
         )
 
 # 导入静态库
-#add_library(test_a STATIC IMPORTED)
+add_library(test_a STATIC IMPORTED)
 
 # 开始真正的导入
-#set_target_properties(
-#        test_a PROPERTIES
-##        IMPORTED_LINK_INTERFACE_LIBRARIES ""
-#        IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/libtest.a
-##        IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/test_a${ANDROID_ABI}.a
-#)
+set_target_properties(
+        test_a PROPERTIES
+#        IMPORTED_LINK_INTERFACE_LIBRARIES ""
+        IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/libtest.a
+#        IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/test_a${ANDROID_ABI}.a
+)
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
@@ -64,4 +64,6 @@ target_link_libraries( # Specifies the target library.
 
                        # Links the target library to the log library
                        # included in the NDK.
-                       ${log-lib})
+                       ${log-lib}
+                        test_a
+        )

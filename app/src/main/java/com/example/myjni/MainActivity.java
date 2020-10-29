@@ -101,10 +101,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickStaticLibraryTest(View view) {
-//        testCmake();
+        testCmake();
     }
     /**
      * 测试 cmake 构建程序
      */
-//    public native static void testCmake();
+    public native static void testCmake();
 }

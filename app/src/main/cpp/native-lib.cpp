@@ -172,15 +172,14 @@ Java_com_example_myjni_MainActivity_syncNativeCount(JNIEnv *env, jobject instanc
     };
 }
 // extern int main();  这样写有坑，因为 main 方法是属于 c 的，而当前是 CPP
-/*
 extern "C"{
     int main();
 }
 extern "C" JNIEXPORT void JNICALL
-Java_com_example_myjni_MainActivity_testCmake(JNIEnv *env, jclass jobject */
-/*clazz*//*
+Java_com_example_myjni_MainActivity_testCmake(JNIEnv *env, jclass jobject
+/*clazz*/
 ) {
     std::string hello = "Hello from C++";
 
     __android_log_print(ANDROID_LOG_DEBUG, "Java_com_example_myjni_MainActivity_testCmake", "main--->:%d", main());
-}*/
+}
