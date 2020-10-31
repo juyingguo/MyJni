@@ -35,8 +35,8 @@ add_library(test_a STATIC IMPORTED)
 set_target_properties(
         test_a PROPERTIES
 #        IMPORTED_LINK_INTERFACE_LIBRARIES ""
-        IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/libtest.a
-#        IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/test_a${ANDROID_ABI}.a
+#        IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/libtest.a
+        IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/libhello_static.a
 )
 
 # Searches for a specified prebuilt library and stores the path as a
