@@ -26,16 +26,16 @@ public class MainActivity extends AppCompatActivity {
 
         /** 1. Java 数据传递给 native */
         test1(true,
-                (byte) 1/*,
-                ',',
+                (byte) 1,
+                ',',/*,
                 (short) 3,
                 4,
                 3.3f,
-                2.2d,
-                "DevYK",
-                28,
-                new int[]{1, 2, 3, 4, 5, 6, 7},
-                new String[]{"1", "2", "4"}*//*,
+                2.2d,*/
+                "DevYK",/*,
+                28,*/
+                new int[]{1, 2, 3, 4, 5},
+                new String[]{"1", "test", "4"}/*,
                 new Person("阳坤"),
                 new boolean[]{false, true}*/
         );
@@ -52,16 +52,16 @@ public class MainActivity extends AppCompatActivity {
      */
     public native void test1(
             boolean b,
-            byte b1/*,
-            char c,
+            byte b1,
+            char c,/*,
             short s,
             long l,
             float f,
-            double d,
-            String name,
-            int age,
+            double d,*/
+            String name,/*,
+            int age,*/
             int[] i,
-            String[] strs*//*,
+            String[] strs/*,
             Person person,
             boolean[] bArray*/
     );

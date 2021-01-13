@@ -12,31 +12,34 @@ extern "C" JNIEXPORT jstring JNICALL
 Java_com_example_myjni_MainActivity_stringFromJNI(
         JNIEnv* env,
         jobject /* this */) {
-    std::string hello = "hello";
-    return env->NewStringUTF(hello.c_str());
+    std::string hello = "hello c";
+//    return env->NewStringUTF(hello.c_str());//c++ code
+    return (*env).NewStringUTF(hello.c_str());//c code
 }
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_example_myjni_MainActivity_test1(JNIEnv *env, jobject thiz, jboolean jboolean1, jbyte jbyte1/*, jchar c,
-                                          jshort s, jlong l, jfloat f, jdouble d, jstring name,
-                                          jint age, jintArray i, jobjectArray strs*/) {
+Java_com_example_myjni_MainActivity_test1(JNIEnv *env, jobject thiz, jboolean jboolean1, jbyte jbyte1, jchar jchar1/*,
+                                          jshort s, jlong l, jfloat f, jdouble d */, jstring name_ /*,
+                                          jint age*/, jintArray i_, jobjectArray strs) {
     // TODO: implement test1()
-
+    LOGD("test1 print NULL %d", NULL);
+    LOGD("test1 print NULL %c", NULL);
     //1. 接收 Java 传递过来的 boolean 值
     unsigned char b_boolean = jboolean1;
     LOGD("boolean-> %d", b_boolean);
+    LOGD("sizeof(unsigned char)-> %d", sizeof(unsigned char));
 
     //2. 接收 Java 传递过来的 boolean 值
     char c_byte = jbyte1;
     LOGD("jbyte-> %d", c_byte);
-    LOGD("jbyte-> %c", c_byte);
+    LOGD("sizeof(char)-> %d", sizeof(char));
 
-/*
     //3. 接收 Java 传递过来的 char 值
     unsigned short c_char = jchar1;
     LOGD("char-> %d", c_char);
+    LOGD("sizeof(c_char)-> %d", sizeof(c_char));
 
-
+/*
     //4. 接收 Java 传递过来的 short 值
     short s_short = jshort1;
     LOGD("short-> %d", s_short);
@@ -52,15 +55,21 @@ Java_com_example_myjni_MainActivity_test1(JNIEnv *env, jobject thiz, jboolean jb
     //7. 接收 Java 传递过来的 double 值
     double d_double = jdouble1;
     LOGD("double-> %f", d_double);
-
+*/
     //8. 接收 Java 传递过来的 String 值
     const char *name_string = env->GetStringUTFChars(name_, 0);
     LOGD("string-> %s", name_string);
-
+    //如果不再使用就要释放
+    env->ReleaseStringUTFChars(name_, name_string);
+    const char *name_string2 = env->GetStringUTFChars(name_, 0);
+    //验证发现释放后，还是有值?
+    LOGD("print string after call release : %s", name_string);
+    LOGD("print string after call release name_string2: %s", name_string2);//还是有值的。
+/*
     //9. 接收 Java 传递过来的 int 值
     int age_java = age;
     LOGD("int:%d", age_java);
-
+*/
     //10. 打印 Java 传递过来的 int []
     jint *intArray = env->GetIntArrayElements(i_, NULL);
     //拿到数组长度
@@ -70,11 +79,14 @@ Java_com_example_myjni_MainActivity_test1(JNIEnv *env, jobject thiz, jboolean jb
     }
     //释放数组
     env->ReleaseIntArrayElements(i_, intArray, 0);
+    for (int i = 0; i < intArraySize; ++i) {
+        LOGD("print after release intArray->%d：", intArray[i]);
+    }
 
     //11. 打印 Java 传递过来的 String[]
     jsize stringArrayLength = env->GetArrayLength(strs);
     for (int i = 0; i < stringArrayLength; ++i) {
-        jobject jobject1 = env->GetObjectArrayElement(strs, i);
+        jobject jobject1 = env->GetObjectArrayElement(strs, i);//获取对象数组中的元素
         //强转 JNI String
         jstring stringArrayData = static_cast<jstring >(jobject1);
 
@@ -83,7 +95,7 @@ Java_com_example_myjni_MainActivity_test1(JNIEnv *env, jobject thiz, jboolean jb
         LOGD("String[%d]: %s", i, itemStr);
         //回收 String[]
         env->ReleaseStringUTFChars(stringArrayData, itemStr);
-    }*/
+    }
 
 
 /*
@@ -172,14 +184,14 @@ Java_com_example_myjni_MainActivity_syncNativeCount(JNIEnv *env, jobject instanc
     };
 }
 // extern int main();  这样写有坑，因为 main 方法是属于 c 的，而当前是 CPP
-extern "C"{
-    int main();
-}
+//extern "C"{
+//    int main();
+//}
 extern "C" JNIEXPORT void JNICALL
 Java_com_example_myjni_MainActivity_testCmake(JNIEnv *env, jclass jobject
 /*clazz*/
 ) {
     std::string hello = "Hello from C++";
 
-    __android_log_print(ANDROID_LOG_DEBUG, "Java_com_example_myjni_MainActivity_testCmake", "main--->:%d", main());
+//    __android_log_print(ANDROID_LOG_DEBUG, "Java_com_example_myjni_MainActivity_testCmake", "main--->:%d", main());
 }
