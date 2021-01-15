@@ -12,12 +12,15 @@ android {
         externalNativeBuild {
             cmake {
 //                 cppFlags "" // 默认包含四大平台
-                abiFilters 'armeabi-v7a'//编译armeabi-v7a平台
+//                abiFilters 'armeabi-v7a'//编译armeabi-v7a平台
+                //故意写错。根据错误提示，查看支持哪些abi
+                // ERROR: ABIs [armeabi-v7a2] are not supported for platform.
+                // Supported ABIs are [arm64-v8a, armeabi, armeabi-v7a, mips, mips64, x86, x86_64].
             }
         }
-        ndk {
+        ndk {//该配置可以和android-defaultConfig-externalNativeBuild-cmake 共同使用
             //过滤，只使用这个版本的库,否则默认的可是4个平台
-            abiFilters 'armeabi-v7a' //暂时关闭，使用所有平台
+            abiFilters 'armeabi-v7a' //保留这一行只编译和使用：armeabi-v7a
         }
     }
     buildTypes {
