@@ -19,7 +19,7 @@
         android:text="非同步线程验证"
         android:onClick="clickNotSyncThreadTest"/>
     <Button
-        android:id="@+id/btn_not_sync_thread"
+        android:id="@+id/btn_sync_thread"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="同步线程验证"

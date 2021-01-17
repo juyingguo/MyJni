@@ -18,9 +18,21 @@ Java_com_example_myjni_MainActivity_stringFromJNI(
 }
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_example_myjni_MainActivity_test1(JNIEnv *env, jobject thiz, jboolean jboolean1, jbyte jbyte1, jchar jchar1/*,
-                                          jshort s, jlong l, jfloat f, jdouble d */, jstring name_ /*,
-                                          jint age*/, jintArray i_, jobjectArray strs) {
+Java_com_example_myjni_MainActivity_test1(JNIEnv *env,
+        jobject thiz,
+        jboolean jboolean1,
+        jbyte jbyte1,
+        jchar jchar1,
+        /*,jshort s,
+         * jlong l,
+         * jfloat f,
+         * jdouble d */
+         jstring name_
+         /*,jint age*/,
+         jintArray i_,
+         jobjectArray strs,
+         jobject person
+         /*jbooleanArray bArray*/) {
     // TODO: implement test1()
     LOGD("test1 print NULL %d", NULL);
     LOGD("test1 print NULL %c", NULL);
@@ -98,24 +110,30 @@ Java_com_example_myjni_MainActivity_test1(JNIEnv *env, jobject thiz, jboolean jb
     }
 
 
-/*
     //12. 打印 Java 传递过来的 Object 对象
     //12.1 获取字节码
-    const char *person_class_str = "com/devyk/ndk_sample/Person";
+    const char *person_class_str = "com/example/myjni/bean/Person";
     //12.2 转 jni jclass
     jclass person_class = env->FindClass(person_class_str);
-    //12.3 拿到方法签名 javap -a
+    //12.3 拿到方法签名 javap -s
     const char *sig = "()Ljava/lang/String;";
     jmethodID jmethodID1 = env->GetMethodID(person_class, "getName", sig);
 
     jobject obj_string = env->CallObjectMethod(person, jmethodID1);
     jstring perStr = static_cast<jstring >(obj_string);
     const char *itemStr2 = env->GetStringUTFChars(perStr, NULL);
-    LOGD("Person: %s", itemStr2);
+    LOGD("Person: %s \n", itemStr2);
+    //12.4 获取年龄方法签名
+    const char * get_age_sig = "()I";
+    jmethodID jmethodId_for_get_age = env->GetMethodID(person_class,"getAge",get_age_sig);
+    jint  jint_age = env->CallIntMethod(person,jmethodId_for_get_age);
+    int  age = jint_age;
+    LOGD("Person,age: %d \n", age);
+
     env->DeleteLocalRef(person_class); // 回收
     env->DeleteLocalRef(person); // 回收
 
-
+    /*
     //13. 打印 Java 传递过来的 booleanArray
     jsize booArrayLength = env->GetArrayLength(bArray_);
     jboolean *bArray = env->GetBooleanArrayElements(bArray_, NULL);

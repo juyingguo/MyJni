@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.myjni.bean.Person;
+
 public class MainActivity extends AppCompatActivity {
 
     private String TAG = "com.example.myjni.MainActivity";
@@ -35,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
                 "DevYK",/*,
                 28,*/
                 new int[]{1, 2, 3, 4, 5},
-                new String[]{"1", "test", "4"}/*,
-                new Person("阳坤"),
+                new String[]{"1", "test", "4"},
+                new Person("阳坤",60)/*,
                 new boolean[]{false, true}*/
         );
     }
@@ -61,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
             String name,/*,
             int age,*/
             int[] i,
-            String[] strs/*,
-            Person person,
+            String[] strs,
+            Person person/*,
             boolean[] bArray*/
     );
 

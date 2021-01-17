@@ -7,7 +7,12 @@ cmake_minimum_required(VERSION 3.4.1)
 
 # 打印日志
 message("当前CMake的路径是：${CMAKE_SOURCE_DIR}")
-message("当前 CMAKE_ANDROID_ARCH_ABI 的路径是：${CMAKE_ANDROID_ARCH_ABI}")
+message("当前 CMAKE_ANDROID_ARCH_ABI 是：${CMAKE_ANDROID_ARCH_ABI}")
+message("当前 CMAKE_ANDROID_ARCH 是：${CMAKE_ANDROID_ARCH}")
+message("当前  PROJECT_SOURCE_DIR = ${PROJECT_SOURCE_DIR}")
+message("当前  CMAKE_MAKE_PROGRAM = ${CMAKE_MAKE_PROGRAM}")
+message(STATUS "PROJECT_SOURCE_DIR = ${PROJECT_SOURCE_DIR}")
+message(WARNING "CMAKE_BINARY_DIR = ${CMAKE_BINARY_DIR}")
 
 # 批量引入源文件
 file(GLOB allCpp *.cpp)
